@@ -6,6 +6,21 @@
 [![Latency SLA](https://img.shields.io/badge/Pre--Auth_Latency-%3C_30ms-10B981.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+<br/>
+
+<div align="center">
+
+### 🚀 Quick Access Links
+
+[![🌐 Launch Live Dashboard](https://img.shields.io/badge/🌐_Visit_Live_Command_Center-http%3A%2F%2Flocalhost%3A8000-10B981?style=for-the-badge&logo=google-chrome&logoColor=white)](http://localhost:8000)
+[![🎬 Watch 5-Min Video Pitch](https://img.shields.io/badge/🎬_Watch_5--Min_Video_Pitch-http%3A%2F%2Flocalhost%3A8000%2Fpitch-8B5CF6?style=for-the-badge&logo=youtube&logoColor=white)](http://localhost:8000/pitch)
+
+*Click the badges above to launch the interactive Merchant Risk Command Center and Animated Video Walkthrough.*
+
+</div>
+
+<br/>
+
 > **Razorpay Hackathon 2026 — Track 2: AI Risk Manager**  
 > An enterprise-grade, real-time AI Risk Intelligence & Fraud Mitigation Platform built to intercept distributed mule account syndicates, card-testing botnets, and impossible travel attacks in **sub-30ms**, while autonomously defending chargeback disputes with legally formatted bank dossiers.
 
