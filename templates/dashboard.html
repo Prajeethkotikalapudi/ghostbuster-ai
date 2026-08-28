@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GhostBuster AI | Autonomous Risk Manager & Fraud Interceptor</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Cytoscape for Network Graph & Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/dashboard.css">
+</head>
+<body>
+
+    <!-- TOP NAV BAR -->
+    <header class="top-nav">
+        <div class="nav-left">
+            <div class="logo-badge">
+                <i class="fa-solid fa-ghost fa-beat-fade"></i>
+            </div>
+            <div>
+                <h1 class="brand-title">GhostBuster.AI <span class="badge-track">Track 2: AI Risk Manager</span></h1>
+                <p class="brand-sub">Autonomous Pre-Auth Mule Ring Interceptor & Dispute Auto-Defender</p>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <a href="/pitch" style="background: linear-gradient(135deg, #EF4444, #8B5CF6); color: white; text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);">
+                <i class="fa-solid fa-circle-play fa-beat"></i> 🎬 Watch 5-Min Video Pitch
+            </a>
+            <div class="status-indicator">
+                <span class="pulse-dot"></span>
+                <span class="status-text">AI Risk Firewall: <strong style="color:#10B981;">ACTIVE (< 30ms)</strong></span>
+            </div>
+            <div class="rzp-shield">
+                <i class="fa-solid fa-shield-halved"></i> Razorpay Native Escrow
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN DASHBOARD LAYOUT -->
+    <div class="dashboard-grid">
+
+        <!-- ROW 1: REAL-TIME METRICS CARDS -->
+        <section class="metrics-row">
+            <div class="metric-card">
+                <div class="metric-icon loss-prevented">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                </div>
+                <div class="metric-data">
+                    <span class="metric-label">Prevented Fraud Loss</span>
+                    <h2 class="metric-val" id="metric-prevented-loss">₹1,66,036</h2>
+                    <span class="metric-sub positive"><i class="fa-solid fa-arrow-trend-up"></i> 100% Pre-Auth Intercepted</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon latency-speed">
+                    <i class="fa-solid fa-bolt-lightning"></i>
+                </div>
+                <div class="metric-data">
+                    <span class="metric-label">Avg Inspection Latency</span>
+                    <h2 class="metric-val" id="metric-latency">24.5 ms</h2>
+                    <span class="metric-sub positive"><i class="fa-solid fa-check"></i> Sub-50ms SLA Guaranteed</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon threat-blocked">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                </div>
+                <div class="metric-data">
+                    <span class="metric-label">Total Inspected</span>
+                    <h2 class="metric-val" id="metric-total-inspected">142</h2>
+                    <span class="metric-sub neutral">0.02% False Positive Rate</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon step-up">
+                    <i class="fa-solid fa-fingerprint"></i>
+                </div>
+                <div class="metric-data">
+                    <span class="metric-label">Step-Up Auth Conversion</span>
+                    <h2 class="metric-val" id="metric-stepup-rate">94.8%</h2>
+                    <span class="metric-sub positive"><i class="fa-solid fa-shield-check"></i> Zero Legitimate Dropoffs</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROW 2: ATTACK SIMULATOR & INTERACTIVE GRAPH -->
+        <div class="two-column-row">
+            
+            <!-- LEFT: 1-CLICK ATTACK SIMULATOR (HACKATHON DEMO CONTROLS) -->
+            <div class="panel simulator-panel">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-vial-virus"></i> 1-Click Live Attack Simulator</h3>
+                    <span class="badge-live">Demo Engine</span>
+                </div>
+                <p class="panel-desc">Trigger real-time simulated attacks against GhostBuster AI to observe sub-50ms pre-auth interception in action:</p>
+
+                <div class="attack-buttons-grid">
+                    <button class="attack-btn" onclick="triggerSimulatedAttack('card_testing_botnet')">
+                        <div class="btn-icon-wrapper red"><i class="fa-solid fa-robot"></i></div>
+                        <div class="btn-text">
+                            <strong>1. Card Testing Botnet</strong>
+                            <span>8 micro-transactions in 0.5s via Tor</span>
+                        </div>
+                    </button>
+
+                    <button class="attack-btn" onclick="triggerSimulatedAttack('impossible_travel')">
+                        <div class="btn-icon-wrapper orange"><i class="fa-solid fa-plane-circle-exclamation"></i></div>
+                        <div class="btn-text">
+                            <strong>2. Impossible Geo-Velocity</strong>
+                            <span>Mumbai &rarr; London in 2 mins (216,000 km/h)</span>
+                        </div>
+                    </button>
+
+                    <button class="attack-btn" onclick="triggerSimulatedAttack('mule_ring_hopping')">
+                        <div class="btn-icon-wrapper purple"><i class="fa-solid fa-circle-nodes"></i></div>
+                        <div class="btn-text">
+                            <strong>3. Mule Syndicate Ring</strong>
+                            <span>Circular fund-hopping across pooled VPAs</span>
+                        </div>
+                    </button>
+
+                    <button class="attack-btn" onclick="triggerSimulatedAttack('friendly_fraud_dispute')">
+                        <div class="btn-icon-wrapper blue"><i class="fa-solid fa-file-shield"></i></div>
+                        <div class="btn-text">
+                            <strong>4. Chargeback Auto-Defense</strong>
+                            <span>Instant AI Bank Evidence Dossier</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Simulation Result Log -->
+                <div class="sim-terminal">
+                    <div class="terminal-header">
+                        <span><i class="fa-solid fa-terminal"></i> Defense Telemetry Terminal</span>
+                        <button class="clear-btn" onclick="clearTerminal()"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                    <div class="terminal-body" id="sim-terminal-body">
+                        <div class="term-line info">[INIT] GhostBuster Risk Engine active. Listening on Razorpay Webhook stream.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: INTERACTIVE CYTOSCAPE MULE GRAPH VISUALIZER -->
+            <div class="panel graph-panel">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-network-wired"></i> Real-Time Mule & Syndicate Graph</h3>
+                    <div class="graph-legend">
+                        <span class="legend-item"><span class="dot green"></span> Verified</span>
+                        <span class="legend-item"><span class="dot red"></span> Mule Ring</span>
+                        <span class="legend-item"><span class="dot yellow"></span> Device</span>
+                    </div>
+                </div>
+                <div id="cy-container"></div>
+                <div class="graph-footer">
+                    <div id="syndicate-alert-box" class="syndicate-alert">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Active Ring Detected: <strong>SYNDICATE_ALPHA (3 VPAs &bull; 1 Shared Rooted Emulator)</strong></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ROW 3: LIVE THREAT STREAM TABLE & VECTOR BREAKDOWN -->
+        <div class="two-column-row">
+            
+            <!-- LEFT: LIVE THREAT STREAM TABLE -->
+            <div class="panel stream-panel">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-satellite-dish fa-spin"></i> Live Pre-Auth Transaction Stream</h3>
+                    <span class="badge-count" id="threat-count">Live</span>
+                </div>
+                
+                <div class="table-wrapper">
+                    <table class="threat-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Tx ID</th>
+                                <th>VPA / Method</th>
+                                <th>Location</th>
+                                <th>Amount</th>
+                                <th>Risk Score</th>
+                                <th>Decision</th>
+                                <th>Reason Codes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="threat-tbody">
+                            <!-- Populated dynamically by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- RIGHT: DISPUTE DOSSIER VIEWER & RISK RADAR -->
+            <div class="panel dispute-panel">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-gavel"></i> Dispute Auto-Defender Dossier</h3>
+                    <span class="badge-live">94.5% Win Probability</span>
+                </div>
+                
+                <div class="dossier-preview" id="dossier-preview-container">
+                    <div class="dossier-header-box">
+                        <h4><i class="fa-solid fa-shield-halved"></i> Active Bank Evidence Packet</h4>
+                        <span class="dossier-id" id="dossier-active-id">dossier_7f9918a0b</span>
+                    </div>
+                    <div class="dossier-meta-grid">
+                        <div><strong>Claimant:</strong> Amitabh Verma</div>
+                        <div><strong>Amount:</strong> ₹4,999.00</div>
+                        <div><strong>Reason:</strong> Unauthorized Tx</div>
+                        <div><strong>Status:</strong> <span class="status-tag submitted">SUBMITTED TO RZP</span></div>
+                    </div>
+                    <div class="legal-brief-box">
+                        <label>AI Legal Brief Summary:</label>
+                        <p id="dossier-brief-text">Cardholder verified via 3D Secure from residential Airtel IP. BlueDart courier delivered package with signed OTP signature at billing coordinates (99.2% match).</p>
+                    </div>
+                    <button class="btn-dossier-action" onclick="openFullDossierModal()">
+                        <i class="fa-solid fa-file-pdf"></i> View Complete Bank Evidence Packet (PDF/JSON)
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FULL EVIDENCE DOSSIER MODAL -->
+    <div class="modal-overlay" id="dossier-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-invoice"></i> Razorpay Bank Chargeback Defense Dossier</h3>
+                <button class="modal-close" onclick="closeDossierModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-dossier-content">
+                <!-- Injected by JS -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeDossierModal()">Close</button>
+                <button class="btn-primary" onclick="submitToRazorpayAPI()"><i class="fa-solid fa-paper-plane"></i> Transmit to Razorpay Dispute API</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM JS -->
+    <script src="/static/dashboard.js"></script>
+</body>
+</html>

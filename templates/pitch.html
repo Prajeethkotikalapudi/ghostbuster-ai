@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GhostBuster.AI | Animated Application Walkthrough & Pitch</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Cytoscape for live video demo graph -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+
+    <link rel="stylesheet" href="/static/pitch.css">
+</head>
+<body>
+
+    <!-- TOP HEADER -->
+    <header class="pitch-header">
+        <div class="header-left">
+            <a href="/" class="back-link"><i class="fa-solid fa-arrow-left"></i> Live Dashboard</a>
+            <div class="badge-title">
+                <i class="fa-solid fa-ghost"></i> GhostBuster.AI Live Animated Application Walkthrough
+            </div>
+        </div>
+        <div class="header-right">
+            <button class="btn-download-video" id="btn-export-video" onclick="toggleVideoRecording()">
+                <i class="fa-solid fa-video"></i> <span id="record-btn-text">Record & Download Video (.webm)</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- CINEMATIC VIDEO PLAYER (16:9 VIEWPORT) -->
+    <main class="video-stage-container">
+        
+        <div class="video-viewport" id="video-canvas-container">
+            
+            <!-- VIRTUAL ANIMATED CURSOR -->
+            <div class="virtual-cursor" id="virtual-cursor">
+                <i class="fa-solid fa-arrow-pointer"></i>
+                <span class="cursor-ripple" id="cursor-ripple"></span>
+            </div>
+
+            <!-- SPOTLIGHT OVERLAY FOR HIGHLIGHTING APP PANELS -->
+            <div class="focus-spotlight" id="focus-spotlight"></div>
+
+            <!-- EMBEDDED LIVE APPLICATION UI SHOWCASE -->
+            <div class="app-mockup-frame" id="app-mockup-frame">
+                
+                <!-- APP TOPBAR -->
+                <div class="mockup-topbar">
+                    <div class="mock-nav-left">
+                        <div class="mock-logo"><i class="fa-solid fa-ghost"></i></div>
+                        <div>
+                            <span class="mock-title">GhostBuster.AI <span class="mock-badge">Track 2: AI Risk Manager</span></span>
+                            <span class="mock-sub">Autonomous Pre-Auth Mule Ring Interceptor & Dispute Auto-Defender</span>
+                        </div>
+                    </div>
+                    <div class="mock-nav-right">
+                        <div class="mock-status"><span class="pulse-dot"></span> Firewall: <strong>ACTIVE (&lt; 30ms)</strong></div>
+                        <div class="mock-rzp"><i class="fa-solid fa-shield-halved"></i> Razorpay Native Escrow</div>
+                    </div>
+                </div>
+
+                <!-- APP METRICS ROW -->
+                <div class="mockup-metrics-row" id="mockup-metrics">
+                    <div class="mock-metric-card" id="card-loss">
+                        <div class="mock-m-icon green"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                        <div>
+                            <span class="mock-m-label">Prevented Fraud Loss</span>
+                            <h3 class="mock-m-val" id="val-loss">₹1,66,036</h3>
+                            <span class="mock-m-sub green"><i class="fa-solid fa-arrow-trend-up"></i> 100% Pre-Auth Intercepted</span>
+                        </div>
+                    </div>
+
+                    <div class="mock-metric-card" id="card-latency">
+                        <div class="mock-m-icon cyan"><i class="fa-solid fa-bolt-lightning"></i></div>
+                        <div>
+                            <span class="mock-m-label">Avg Inspection Latency</span>
+                            <h3 class="mock-m-val" id="val-latency">24.5 ms</h3>
+                            <span class="mock-m-sub green"><i class="fa-solid fa-check"></i> Sub-30ms SLA Guaranteed</span>
+                        </div>
+                    </div>
+
+                    <div class="mock-metric-card" id="card-inspected">
+                        <div class="mock-m-icon red"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div>
+                            <span class="mock-m-label">Total Inspected</span>
+                            <h3 class="mock-m-val" id="val-inspected">142</h3>
+                            <span class="mock-m-sub">0.02% False Positive Rate</span>
+                        </div>
+                    </div>
+
+                    <div class="mock-metric-card" id="card-stepup">
+                        <div class="mock-m-icon purple"><i class="fa-solid fa-fingerprint"></i></div>
+                        <div>
+                            <span class="mock-m-label">Step-Up Auth Conversion</span>
+                            <h3 class="mock-m-val" id="val-stepup">94.8%</h3>
+                            <span class="mock-m-sub green"><i class="fa-solid fa-shield-check"></i> Zero Good Dropoffs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAIN WORKSPACE: SIMULATOR & CYTOSCAPE GRAPH -->
+                <div class="mockup-workspace">
+                    
+                    <!-- LEFT PANEL: 1-CLICK ATTACK SIMULATOR & TERMINAL -->
+                    <div class="mock-panel simulator-box" id="mock-sim-panel">
+                        <div class="mock-panel-header">
+                            <h4><i class="fa-solid fa-vial-virus"></i> 1-Click Live Attack Simulator</h4>
+                            <span class="mock-tag-live">Demo Engine</span>
+                        </div>
+                        
+                        <div class="mock-attack-buttons">
+                            <div class="mock-btn" id="btn-mock-botnet">
+                                <div class="btn-i red"><i class="fa-solid fa-robot"></i></div>
+                                <div>
+                                    <strong>1. Card Testing Botnet</strong>
+                                    <span>8 micro-transactions over Tor</span>
+                                </div>
+                            </div>
+                            <div class="mock-btn" id="btn-mock-travel">
+                                <div class="btn-i orange"><i class="fa-solid fa-plane-circle-exclamation"></i></div>
+                                <div>
+                                    <strong>2. Impossible Geo-Velocity</strong>
+                                    <span>Mumbai &rarr; London (216,000 km/h)</span>
+                                </div>
+                            </div>
+                            <div class="mock-btn" id="btn-mock-mule">
+                                <div class="btn-i purple"><i class="fa-solid fa-circle-nodes"></i></div>
+                                <div>
+                                    <strong>3. Mule Syndicate Ring</strong>
+                                    <span>Circular VPA fund hopping</span>
+                                </div>
+                            </div>
+                            <div class="mock-btn" id="btn-mock-dispute">
+                                <div class="btn-i blue"><i class="fa-solid fa-file-shield"></i></div>
+                                <div>
+                                    <strong>4. Chargeback Auto-Defense</strong>
+                                    <span>Instant AI Bank Evidence Packet</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LIVE TELEMETRY TERMINAL -->
+                        <div class="mock-terminal">
+                            <div class="mock-term-header">
+                                <span><i class="fa-solid fa-terminal"></i> Pre-Auth Defense Stream</span>
+                                <span class="term-status-dot"></span>
+                            </div>
+                            <div class="mock-term-body" id="mock-terminal-body">
+                                <div class="term-row info">[INIT] GhostBuster Risk Engine active. Ingesting Razorpay telemetry.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT PANEL: INTERACTIVE MULE GRAPH -->
+                    <div class="mock-panel graph-box" id="mock-graph-panel">
+                        <div class="mock-panel-header">
+                            <h4><i class="fa-solid fa-network-wired"></i> Real-Time Mule & Syndicate Graph</h4>
+                            <div class="graph-pill-legend">
+                                <span><i class="fa-solid fa-circle" style="color:#10B981;"></i> Clean</span>
+                                <span><i class="fa-solid fa-circle" style="color:#EF4444;"></i> Mule Ring</span>
+                                <span><i class="fa-solid fa-circle" style="color:#F59E0B;"></i> Device</span>
+                            </div>
+                        </div>
+                        <div id="mock-cy-container"></div>
+                        <div class="mock-syndicate-banner" id="mock-syn-banner">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span>Active Ring Detected: <strong>SYNDICATE_ALPHA (3 VPAs &bull; Rooted Dalvik Emulator)</strong></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- LIVE THREAT STREAM TABLE (BOTTOM) -->
+                <div class="mockup-table-section" id="mock-table-panel">
+                    <div class="mock-panel-header">
+                        <h4><i class="fa-solid fa-satellite-dish fa-spin"></i> Live Pre-Auth Transaction Stream</h4>
+                        <span class="mock-tag-count">Real-Time Ingestion</span>
+                    </div>
+                    <div class="mock-table-wrapper">
+                        <table class="mock-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Tx ID</th>
+                                    <th>VPA / Method</th>
+                                    <th>Location</th>
+                                    <th>Amount</th>
+                                    <th>Risk Score</th>
+                                    <th>Decision</th>
+                                    <th>Reason Codes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mock-table-tbody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- EMBEDDED MODAL FOR DISPUTE DOSSIER DEMO -->
+                <div class="mock-modal-overlay" id="mock-dossier-modal">
+                    <div class="mock-modal-box">
+                        <div class="mock-modal-header">
+                            <h3><i class="fa-solid fa-file-invoice"></i> Razorpay Bank Chargeback Defense Dossier</h3>
+                            <span class="mock-modal-badge">Generated in 1.8s</span>
+                        </div>
+                        <div class="mock-modal-body">
+                            <div class="dossier-score-banner">
+                                <div>
+                                    <strong style="color:#10B981; font-size:0.95rem;"><i class="fa-solid fa-shield-check"></i> High Defense Strength</strong>
+                                    <p style="font-size:0.75rem; color:#94A3B8;">AI Legal Evidence Brief</p>
+                                </div>
+                                <span class="win-rate-pill">94.5% Winning Probability</span>
+                            </div>
+                            <div class="dossier-details-grid">
+                                <div><label>Dispute ID:</label> <span>disp_RZP_991823</span></div>
+                                <div><label>Claimant:</label> <span>Amitabh Verma</span></div>
+                                <div><label>Amount:</label> <span style="color:#F87171;">₹4,999.00</span></div>
+                                <div><label>Reason:</label> <span>Unauthorized Purchase</span></div>
+                            </div>
+                            <div class="dossier-proof-item">
+                                <strong><i class="fa-solid fa-lock"></i> 3D Secure / MPIN Proof:</strong>
+                                <code>Cardholder verified from Residential Airtel IP (103.21.14.82, Mumbai) matching billing coordinates with 99.2% proximity.</code>
+                            </div>
+                            <div class="dossier-proof-item">
+                                <strong><i class="fa-solid fa-truck"></i> BlueDart Carrier Delivery Proof:</strong>
+                                <code>Delivered to registered address under tracking BLD889102941X with recipient verified SMS OTP signature.</code>
+                            </div>
+                            <div class="dossier-legal-item">
+                                <strong><i class="fa-solid fa-scale-balanced"></i> Scheme Rule 54-A Legal Brief:</strong>
+                                <p>"Conclusive proof of legitimate 2FA authorization and physical delivery established. Recommending immediate dismissal under Card Brand Scheme Rule 54(A)."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FLOATING CAPTION NARRATION BANNER -->
+            <div class="captions-bar" id="captions-container">
+                <span class="speaker-tag"><i class="fa-solid fa-volume-high"></i> AI NARRATOR:</span>
+                <span class="caption-text" id="live-caption-text">Welcome to GhostBuster.AI - Live Application Demonstration.</span>
+            </div>
+
+        </div>
+
+        <!-- VIDEO CONTROLS BAR -->
+        <div class="video-controls">
+            <div class="progress-bar-container" onclick="seekVideo(event)">
+                <div class="progress-fill" id="video-progress"></div>
+            </div>
+            
+            <div class="controls-row">
+                <div class="ctrl-left">
+                    <button class="ctrl-btn play-btn" id="btn-play-pause" onclick="togglePlayPause()">
+                        <i class="fa-solid fa-play" id="play-icon"></i>
+                    </button>
+                    <button class="ctrl-btn" onclick="prevScene()"><i class="fa-solid fa-backward-step"></i></button>
+                    <button class="ctrl-btn" onclick="nextScene()"><i class="fa-solid fa-forward-step"></i></button>
+                    <span class="time-display" id="time-display">0:00 / 5:00</span>
+                </div>
+
+                <div class="ctrl-center">
+                    <span class="slide-indicator" id="slide-indicator">Scene 1 of 6: Application Overview & Metrics</span>
+                </div>
+
+                <div class="ctrl-right">
+                    <button class="ctrl-btn" id="btn-mute" onclick="toggleMute()"><i class="fa-solid fa-volume-high" id="volume-icon"></i></button>
+                    <select class="speed-select" id="speed-select" onchange="changeSpeed(this.value)">
+                        <option value="1">1.0x Speed</option>
+                        <option value="1.25">1.25x Speed</option>
+                        <option value="1.5">1.5x Speed</option>
+                    </select>
+                    <button class="ctrl-btn" onclick="toggleFullscreen()"><i class="fa-solid fa-expand"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="/static/pitch.js"></script>
+</body>
+</html>
