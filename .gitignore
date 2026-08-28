@@ -22,3 +22,12 @@ ENV/
 # OS specific
 .DS_Store
 Thumbs.db
+
+# Media & Video Exports (Downloaded locally, excluded from Git)
+*.mp4
+*.webm
+*.mov
+*.avi
+*.mkv
+*.wav
+*.mp3
